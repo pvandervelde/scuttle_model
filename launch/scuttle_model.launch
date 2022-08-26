@@ -18,10 +18,4 @@
     <include file="$(find scuttle_bumper)/launch/scuttle_bumper.launch">
         <arg name="is_physical" value="$(arg is_physical)"/>
     </include>
-
-    <include file="$(find scuttle_trajectory_supervisor)/launch/scuttle_trajectory_supervisor.launch">
-        <arg name="is_physical" value="$(arg is_physical)"/>
-        <arg name="cmd_vel_topic_for_controllers" value="$(arg cmd_vel_topic_from_controllers)" />
-        <arg name="cmd_vel_topic_for_drivers" value="$(arg cmd_vel_topic_for_drivers)" />
-    </include>
 </launch>
