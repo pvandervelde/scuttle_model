@@ -3,6 +3,6 @@
 
     <xacro:include filename="$(find scuttle_description)/urdf/scuttle.xacro" />
 
-    <xacro:include filename="$(find scuttle_model)/urdf/bumper.xacro" />
+    <xacro:include filename="$(find scuttle_bumper)/urdf/bumper.xacro" />
 
 </robot>
