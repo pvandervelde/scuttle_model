@@ -12,6 +12,51 @@
     -->
     <arg name="is_physical" default="true"/>
 
+    <!--
+        Scuttle defined arguments
+    -->
+    <arg name="map_file" value="$(find scuttle_navigation)/maps/map.yaml"/>
+    <arg name="move_forward_only" value="false"/>
+
+    <!--
+        Parameters for topic redirection
+
+        Allow redirecting the /cmd_vel topic. This allows us to insert a node between the publishers
+        for movement commands and the consumers of the movement commands. That way we can intercept
+        the movement commands and review / alter them before the get to the drivers, e.g. when we
+        want to avoid a certain area or when one of the sensors indicates a collision etc.
+
+        - 'cmd_vel_topic_for_controllers': The topic that controllers, e.g. the keyboard, or
+          the navigation stack write to
+        - 'cmd_vel_topic_for_drivers': The topic that drivers, e.g. scuttle_driver or the gazebo
+          differential drive plugin listen to
+        - 'odom_topic': the topic on which odometry is published
+    -->
+    <arg name="cmd_vel_topic_for_controllers" default="/cmd_vel" />
+    <arg name="cmd_vel_topic_for_drivers" default="/cmd_vel" />
+    <arg name="odom_topic" default="odom" />
+
+    <!--
+        Define your own arguments here
+    -->
+
+
+    <!--
+        Load the base scuttle_bringup file
+    -->
+    <include file="$(find scuttle_bringup)/launch/base.launch">
+        <arg name="is_physical" value="$(arg is_physical)"/>
+        <arg name="cmd_vel_topic_for_controllers" value="/cmd_vel" />
+        <arg name="cmd_vel_topic_for_drivers" value="/cmd_vel" />
+        <arg name="odom_topic" value="odom" />
+    </include>
+
+    <!--
+        Define your own parameters here. They will override the parameters
+        defined by the other scuttle launch files.
+    -->
+    <param name="cmd_vel_topic_for_controllers" value="/cmd_vel" />
+    <param name="cmd_vel_topic_for_drivers" value="/cmd_vel_for_driver" />
 
     <!--
         Start your own ROS nodes here
@@ -22,5 +67,7 @@
 
     <include file="$(find scuttle_trajectory_supervisor)/launch/scuttle_trajectory_supervisor.launch">
         <arg name="is_physical" value="$(arg is_physical)"/>
+        <arg name="cmd_vel_topic_for_controllers" value="$(arg cmd_vel_topic_from_controllers)" />
+        <arg name="cmd_vel_topic_for_drivers" value="$(arg cmd_vel_topic_for_drivers)" />
     </include>
 </launch>
