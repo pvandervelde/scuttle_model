@@ -2,4 +2,7 @@
     <robot name="scuttle" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
     <xacro:include filename="$(find scuttle_description)/urdf/scuttle.xacro" />
+
+    <xacro:include filename="$(find scuttle_model)/urdf/bumper.xacro" />
+
 </robot>
