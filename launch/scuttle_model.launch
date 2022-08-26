@@ -16,4 +16,7 @@
     <!--
         Start your own ROS nodes here
     -->
+    <include file="$(find scuttle_bumper)/launch/scuttle_bumper.launch">
+        <arg name="is_physical" value="$(arg is_physical)"/>
+    </include>
 </launch>
